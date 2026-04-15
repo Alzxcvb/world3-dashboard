@@ -368,21 +368,13 @@ def build_grid_chart(scenarios, real_df, show_scenarios, show_real_data):
         fig.update_yaxes(visible=False, row=r, col=c)
 
     fig.update_layout(
-        title=dict(
-            text=(
-                "Where Are We on the Limits to Growth?<br>"
-                "<span style='font-size:13px;color:gray'>"
-                "All Variables -- World3 Scenarios vs. Real-World Data</span>"
-            ),
-            font=dict(size=20),
-        ),
         template="plotly_white",
         height=rows * 350,
         legend=dict(
-            orientation="h", yanchor="bottom", y=1.02,
+            orientation="h", yanchor="bottom", y=1.04,
             xanchor="left", x=0,
         ),
-        margin=dict(t=100),
+        margin=dict(t=60),
     )
 
     return fig
