@@ -29,6 +29,19 @@ Current validated vertical slice:
 
 See [docs/SCOPE.md](docs/SCOPE.md) for technical scope and architecture.
 
+## Run Locally
+
+```bash
+pip install -r requirements.txt
+streamlit run src/app.py
+```
+
+## Deploy (Streamlit Community Cloud)
+
+1. Sign in at https://share.streamlit.io with the GitHub account that owns this repo.
+2. Click **New app** → select `Alzxcvb/world3-dashboard`, branch `main`, main file `src/app.py`.
+3. Deploy. Free tier is sufficient; cached real-world data ships in the repo so first load works without API calls.
+
 ## Tech Stack
 
 - **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (339 stars, pip-installable) + [Nebel 2024 recalibration params](https://github.com/TimSchell98/PyWorld3-03)
