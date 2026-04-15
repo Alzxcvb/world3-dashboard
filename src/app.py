@@ -91,6 +91,15 @@ def load_real_data():
 
 
 @st.cache_data(ttl=3600)
+def load_methodology():
+    """Load full methodology doc for inline display."""
+    md_path = Path(__file__).parent.parent / "docs" / "METHODOLOGY.md"
+    if md_path.exists():
+        return md_path.read_text()
+    return None
+
+
+@st.cache_data(ttl=3600)
 def load_metadata():
     """Load data cache metadata."""
     meta_path = DATA_DIR / "real_world_data_metadata.json"
@@ -386,6 +395,7 @@ def main():
     scenarios = load_scenarios()
     real_df = load_real_data()
     metadata = load_metadata()
+    methodology_md = load_methodology()
 
     # -- Sidebar --------------------------------------------------------------
     with st.sidebar:
@@ -435,6 +445,21 @@ def main():
 
         # Show/hide real data
         show_real_data = st.toggle("Show Real-World Data", value=True)
+
+        st.divider()
+
+        # Methodology quick-reference (always visible, not buried)
+        with st.expander("How to read this", expanded=False):
+            st.markdown(
+                "**Series are normalized to 1970 = 1.0** so abstract World3 "
+                "model units can be compared with real physical measurements. "
+                "The overlay shows directional alignment, not absolute calibration.\n\n"
+                "**Real-world proxies** follow Herrington (2021): GDP/cap stands "
+                "in for industrial output, kcal/cap/day for food, CO2 + plastic "
+                "for persistent pollution, mean years of schooling for services. "
+                "These are imperfect — see the full Methodology section below "
+                "for proxy limitations."
+            )
 
         st.divider()
 
@@ -530,33 +555,13 @@ def main():
         for key, desc in SCENARIO_DESCRIPTIONS.items():
             st.markdown(f"**{key}:** {desc}")
 
-    # -- Methodology note (expandable) ----------------------------------------
+    # -- Methodology (full doc, inline) ---------------------------------------
 
-    with st.expander("Methodology"):
-        st.markdown(
-            """
-World3 outputs are in abstract model units (e.g., "resource units",
-"pollution units") that do not map directly to physical measurements.
-To compare model output with real data, both series are **normalized**
-to a common base year (1970 = 1.0). This shows relative change over
-time rather than absolute levels.
-
-Real-world proxy choices follow **Herrington (2021)**,
-*"Update to limits to growth"*, Journal of Industrial Ecology:
-
-| World3 Variable | Real-World Proxy | Source |
-|---|---|---|
-| Population | World population | World Bank |
-| Industrial Output/Cap | GDP per capita (constant 2015 USD) | World Bank |
-| Food Per Capita | Daily calorie supply (kcal/cap/day) | FAO via OWID |
-| Persistent Pollution | CO2 (ppm) + plastic production (tonnes) | NOAA + OWID |
-| Services Per Capita | Mean years of schooling | UNDP via OWID |
-
-These proxies are imperfect but follow Herrington's methodology.
-The normalized overlay shows **directional alignment**, not exact calibration.
-See docs/METHODOLOGY.md for full proxy limitation analysis.
-            """
-        )
+    with st.expander("Methodology — full proxy mapping + limitations"):
+        if methodology_md:
+            st.markdown(methodology_md)
+        else:
+            st.info("docs/METHODOLOGY.md not found in deployed bundle.")
 
     # -- Data info footer -----------------------------------------------------
 
