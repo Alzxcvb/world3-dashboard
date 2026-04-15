@@ -1,4 +1,6 @@
-data/
+data/*
+!data/real_world_data.csv
+!data/real_world_data_metadata.json
 __pycache__/
 *.pyc
 .DS_Store

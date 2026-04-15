@@ -20,7 +20,12 @@ In 2021, Gaya Herrington (then at KPMG) updated the comparison with 40+ years of
 
 ## Project Status
 
-**Phase: Scoping & Design**
+**Phase: Early prototype**
+
+Current validated vertical slice:
+- Cached real-world population data ingestion
+- Headless scenario chart generation
+- Population overlay against implemented World3 scenarios
 
 See [docs/SCOPE.md](docs/SCOPE.md) for technical scope and architecture.
 
