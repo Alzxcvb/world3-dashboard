@@ -6,17 +6,27 @@ a live version of this. Herrington (2021) did it as a static figure in a paper.
 We do it dynamically with fresh data from public APIs.
 """
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from scenarios import run_all_scenarios, KEY_VARIABLES
+from scenarios import run_all_scenarios
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 FIG_DIR = Path(__file__).parent.parent / "figures"
 FIG_DIR.mkdir(exist_ok=True)
+VALIDATED_VARIABLE_KEYS = (
+    "population",
+    "industrial_output_per_capita",
+    "food_per_capita",
+    "pollution",
+    "services_per_capita",
+)
 
-# Map from World3 variable names to real-data column names
+# Map from World3 variable names to real-data column names.
+# Proxy choices follow Herrington (2021) where possible.
 VARIABLE_MAP = {
     "population": {
         "world3_attr": "pop",
@@ -32,42 +42,28 @@ VARIABLE_MAP = {
     },
     "food_per_capita": {
         "world3_attr": "fpc",
-        "real_col": "food_production_index",
-        "label": "Food Per Capita / Food Production Index",
+        "real_col": "food_kcal_per_capita",
+        "label": "Food Per Capita (kcal/person/day, FAO)",
         "normalize_year": 1970,
     },
     "pollution": {
         "world3_attr": "ppol",
-        "real_col": "co2_ppm",
-        "label": "Persistent Pollution / CO2",
+        "real_col": "pollution_composite",
+        "label": "Persistent Pollution (CO2 + Plastic, normalized)",
         "normalize_year": 1970,
     },
     "services_per_capita": {
         "world3_attr": "sopc",
-        "real_col": "life_expectancy",
-        "label": "Services Per Capita / Life Expectancy",
+        "real_col": "mean_years_schooling",
+        "label": "Services Per Capita / Mean Years of Schooling",
         "normalize_year": 1970,
     },
 }
 
 
-def normalize_series(values, years, base_year):
-    """Normalize a series so that base_year = 1.0."""
-    if base_year in years:
-        idx = list(years).index(base_year)
-        base_val = values[idx]
-        if base_val != 0:
-            return values / base_val
-    # Fallback: normalize to first value
-    if values[0] != 0:
-        return values / values[0]
-    return values
-
-
 def normalize_world3(world3_run, attr, base_year=1970):
     """Normalize a World3 variable to base_year = 1.0."""
     data = getattr(world3_run, attr)
-    time = world3_run.time
     # Find index for base year (time steps are 0.5yr from 1900)
     idx = int((base_year - 1900) / 0.5)
     base_val = data[idx]
@@ -168,6 +164,16 @@ def plot_all_overlays(scenarios, real_df):
         print(f"Saved: {out}")
 
 
+def plot_validated_overlays(scenarios, real_df):
+    """Generate overlays only for variables validated in the current build stage."""
+    for var_key in VALIDATED_VARIABLE_KEYS:
+        fig = plot_overlay(scenarios, real_df, var_key)
+        out = FIG_DIR / f"overlay_{var_key}.png"
+        fig.savefig(out, dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        print(f"Saved validated overlay: {out}")
+
+
 def plot_dashboard_with_overlay(scenarios, real_df):
     """
     The hero image: 2x3 grid with all key variables, scenarios + real data.
@@ -242,11 +248,8 @@ def main():
     print("\nRunning World3 scenarios...")
     scenarios = run_all_scenarios()
 
-    print("\nGenerating overlay charts...")
-    plot_all_overlays(scenarios, real_df)
-
-    print("\nGenerating dashboard with real data overlay...")
-    plot_dashboard_with_overlay(scenarios, real_df)
+    print("\nGenerating validated overlay charts...")
+    plot_validated_overlays(scenarios, real_df)
 
     print("\nDone!")
 

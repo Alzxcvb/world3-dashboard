@@ -1,11 +1,10 @@
 """
-Generate the signature World3 scenario comparison chart.
-This is the core visualization: 4 scenarios overlaid for each key variable.
+Generate scenario comparison charts for the implemented World3 runs.
 """
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import numpy as np
 from pathlib import Path
 from scenarios import run_all_scenarios, KEY_VARIABLES
 
@@ -28,7 +27,6 @@ def plot_scenario_comparison(scenarios, var_key, normalize_to_1970=True):
         "BAU": "#e74c3c",    # red
         "BAU2": "#e67e22",   # orange
         "CT": "#2ecc71",     # green
-        "SW": "#3498db",     # blue
     }
 
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -78,7 +76,6 @@ def plot_dashboard_overview(scenarios):
         "BAU": "#e74c3c",
         "BAU2": "#e67e22",
         "CT": "#2ecc71",
-        "SW": "#3498db",
     }
 
     fig, axes = plt.subplots(2, 3, figsize=(18, 10))

@@ -1,18 +1,28 @@
 """
 World3 Standard Scenarios
-Runs the 4 canonical Limits to Growth scenarios and returns results.
+Runs the currently implemented World3 scenarios and returns results.
 
 Scenarios:
     BAU  - Business As Usual (Standard Run): No major policy changes
     BAU2 - Business As Usual 2: Double the estimated resources
     CT   - Comprehensive Technology: Technology solves resource/pollution
-    SW   - Stabilized World: Population + capital controls + technology
+    SW   - Not implemented yet in this repository
+
+Model version note:
+    The pip-installable pyworld3 implements the 1974 World3. The 2004
+    World3-03 update (Meadows et al., "30-Year Update") changed many
+    parameters together — applying partial 2004 corrections without the
+    full parameter/table set makes results WORSE (e.g., BAU peak pop
+    drops to 6B vs. real 8B). We use the consistent 1974 defaults until
+    full PyWorld3-03 integration (TimSchell98/PyWorld3-03) is complete.
+
+    Nebel et al. (2024) further recalibrated 35 World3-03 parameters
+    against 1970-2020 data; those values are not yet integrated.
 
 Reference: Meadows et al. (2004), Herrington (2021), Nebel et al. (2024)
 """
 
 from pyworld3 import World3
-import numpy as np
 
 
 def run_bau():
@@ -29,7 +39,7 @@ def run_bau():
 def run_bau2():
     """BAU2 — Double nonrenewable resources."""
     w = World3(dt=0.5, year_min=1900, year_max=2100)
-    w.init_world3_constants(nri=2e12)  # double resources
+    w.init_world3_constants(nri=2e12)
     w.init_world3_variables()
     w.set_world3_table_functions()
     w.set_world3_delay_functions()
@@ -43,19 +53,6 @@ def run_ct():
     w.init_world3_constants(
         nri=2e12,           # double resources
         nruf2=0.125,        # much more efficient resource use after policy year
-    )
-    w.init_world3_variables()
-    w.set_world3_table_functions()
-    w.set_world3_delay_functions()
-    w.run_world3()
-    return w
-
-
-def run_sw():
-    """Stabilized World — population limits + capital controls + technology."""
-    w = World3(dt=0.5, year_min=1900, year_max=2100)
-    w.init_world3_constants(
-        nri=2e12,
     )
     w.init_world3_variables()
     w.set_world3_table_functions()
@@ -102,18 +99,6 @@ KEY_VARIABLES = {
         "unit": "$/person/year",
         "description": "Service output per person (health, education)",
     },
-    "human_welfare_index": {
-        "attr": "hwi",
-        "label": "Human Welfare Index",
-        "unit": "index (0-1)",
-        "description": "Composite welfare measure",
-    },
-    "human_ecological_footprint": {
-        "attr": "hef",
-        "label": "Human Ecological Footprint",
-        "unit": "hectares",
-        "description": "Total ecological footprint of humanity",
-    },
     "arable_land": {
         "attr": "al",
         "label": "Arable Land",
@@ -133,21 +118,19 @@ def extract_variable(world3_run, var_key):
 
 
 def run_all_scenarios():
-    """Run all 4 scenarios and return dict of results."""
+    """Run the scenarios that are actually implemented and return dict of results."""
     print("Running BAU (Standard Run)...")
     bau = run_bau()
     print("Running BAU2 (Double Resources)...")
     bau2 = run_bau2()
     print("Running CT (Comprehensive Technology)...")
     ct = run_ct()
-    print("Running SW (Stabilized World)...")
-    sw = run_sw()
+    print("Skipping SW (Stabilized World): not implemented in code yet.")
 
     return {
         "BAU": bau,
         "BAU2": bau2,
         "CT": ct,
-        "SW": sw,
     }
 
 
