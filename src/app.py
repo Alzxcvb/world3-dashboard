@@ -40,6 +40,7 @@ SCENARIO_COLORS = {
     "BAU": "#e74c3c",
     "BAU2": "#e67e22",
     "CT": "#27ae60",
+    "SW": "#3498db",
 }
 
 SCENARIO_DESCRIPTIONS = {
@@ -56,6 +57,13 @@ SCENARIO_DESCRIPTIONS = {
         "**Comprehensive Technology** -- aggressive resource efficiency, pollution "
         "controls, and agricultural yield improvements. Technology alone delays "
         "but does not prevent overshoot."
+    ),
+    "SW": (
+        "**Stabilized World** (Scenario 9) -- the full policy bundle from "
+        "Meadows et al. (2004): replacement-level fertility, capped industrial "
+        "output, resource efficiency, pollution controls, and agricultural "
+        "technology, all applied from 2002. The only scenario that achieves "
+        "a sustainable equilibrium without overshoot."
     ),
 }
 

@@ -6,7 +6,7 @@ Scenarios:
     BAU  - Business As Usual (Standard Run): No major policy changes
     BAU2 - Business As Usual 2: Double the estimated resources
     CT   - Comprehensive Technology: Technology solves resource/pollution
-    SW   - Not implemented yet in this repository
+    SW   - Stabilized World (Scenario 9): Full policy bundle — equilibrium
 
 Model version note:
     The pip-installable pyworld3 implements the 1974 World3. The 2004
@@ -53,6 +53,41 @@ def run_ct():
     w.init_world3_constants(
         nri=2e12,           # double resources
         nruf2=0.125,        # much more efficient resource use after policy year
+    )
+    w.init_world3_variables()
+    w.set_world3_table_functions()
+    w.set_world3_delay_functions()
+    w.run_world3()
+    return w
+
+
+def run_sw():
+    """Stabilized World (Scenario 9) — full policy bundle: population + economy +
+    technology applied together from 2002. The only scenario in Meadows et al.
+    (2004) that avoids overshoot and achieves a sustainable equilibrium.
+
+    Note: The todo.md spec lists 2004 World3-03 params (dcfsn=2, imti=350),
+    but we run the 1974 pyworld3. In the 1974 model dcfsn is a global constant
+    (not policy-year-gated), so setting it to 2 crushes population from 1900.
+    Instead we use the 1974 policy-year switches (zpgt, pet, fcest, iet) set
+    to 2002, which produces the correct qualitative SW behavior: population
+    stabilizes near 6B, resources are conserved, no overshoot collapse.
+    """
+    w = World3(dt=0.5, year_min=1900, year_max=2100)
+    w.init_world3_constants(
+        # Population stabilization policies (activate at 2002)
+        zpgt=2002,          # zero population growth target year
+        pet=2002,           # population equilibrium trigger
+        fcest=2002,         # family size completion trigger
+        # Economic equilibrium (activate at 2002)
+        iet=2002,           # industrial equilibrium trigger
+        iopcd=350,          # industrial output per capita desired (cap growth)
+        # Technology bundle (values used after policy year)
+        nruf2=0.1,          # resource efficiency after pyear
+        ppgf2=0.1,          # pollution generation factor after pyear
+        ppgf21=0.1,         # secondary pollution chain factor after pyear
+        lyf2=1.2,           # land yield factor (ag tech)
+        alai2=1,            # arable land adjustment after pyear
     )
     w.init_world3_variables()
     w.set_world3_table_functions()
@@ -125,12 +160,14 @@ def run_all_scenarios():
     bau2 = run_bau2()
     print("Running CT (Comprehensive Technology)...")
     ct = run_ct()
-    print("Skipping SW (Stabilized World): not implemented in code yet.")
+    print("Running SW (Stabilized World)...")
+    sw = run_sw()
 
     return {
         "BAU": bau,
         "BAU2": bau2,
         "CT": ct,
+        "SW": sw,
     }
 
 
