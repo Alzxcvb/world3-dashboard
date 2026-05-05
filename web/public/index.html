@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Where Are We on the Limits to Growth?</title>
+    <meta
+      name="description"
+      content="Live overlay of the World3 Limits to Growth model scenarios against real-world data, 1900–2100. See which scenario humanity is currently tracking."
+    />
+    <meta property="og:title" content="Where Are We on the Limits to Growth?" />
+    <meta
+      property="og:description"
+      content="World3 model scenarios (BAU, BAU2, CT, SW) vs real-world data — population, industrial output, food, pollution, services."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3E🌍%3C/text%3E%3C/svg%3E" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="wrap">
+        <h1>Where Are We on the <span class="accent">Limits to Growth</span>?</h1>
+        <p class="lede">
+          The World3 computer model from <em>The Limits to Growth</em> (Meadows
+          et al., 1972) projected several possible futures. This dashboard
+          overlays those scenarios with real-world data from public sources
+          (World Bank, NOAA, Our World in Data) so you can see — variable by
+          variable — which path humanity is actually following.
+        </p>
+        <p id="headline" class="headline" hidden></p>
+        <p class="freshness">
+          <span id="freshness-line">Loading…</span>
+          <a href="https://github.com/Alzxcvb/world3-dashboard" target="_blank" rel="noopener">View source on GitHub →</a>
+        </p>
+      </div>
+    </header>
+
+    <main class="wrap layout">
+      <aside class="sidebar">
+        <h2>View</h2>
+        <div class="control">
+          <label class="radio"><input type="radio" name="view" value="single" checked /> Single variable</label>
+          <label class="radio"><input type="radio" name="view" value="grid" /> Dashboard grid</label>
+        </div>
+
+        <h2>Variable</h2>
+        <select id="variable-select" class="control"></select>
+
+        <h2>Scenarios</h2>
+        <div id="scenario-toggles" class="control"></div>
+
+        <h2>Year range</h2>
+        <div class="control range-inputs">
+          <label>From <input type="number" id="year-min" min="1900" max="2100" step="5" value="1960" /></label>
+          <label>To <input type="number" id="year-max" min="1900" max="2100" step="5" value="2100" /></label>
+        </div>
+
+        <h2>Real-world data</h2>
+        <label class="checkbox control"><input type="checkbox" id="show-real" checked /> Show real-world overlay</label>
+
+        <details class="howto">
+          <summary>How to read this</summary>
+          <p>
+            Series are <strong>normalized to 1970 = 1.0</strong> so the
+            abstract World3 model units can be compared with real measurements.
+            The overlay shows directional alignment, not absolute calibration.
+          </p>
+          <p>
+            Real-world proxies follow Herrington (2021): GDP/cap stands in for
+            industrial output, kcal/cap/day for food, CO₂ + plastic for
+            pollution, mean years of schooling for services.
+          </p>
+        </details>
+      </aside>
+
+      <section class="content">
+        <div id="chart" class="chart"></div>
+
+        <section id="rmse-section" class="rmse-section" hidden>
+          <h2>Scenario fit</h2>
+          <p class="muted">
+            Root-mean-square error between each scenario and real-world data
+            from 1970 onward. Lower = closer match. <strong>★</strong> marks
+            the closest fit.
+          </p>
+          <div id="rmse-content"></div>
+        </section>
+
+        <details class="scenario-desc">
+          <summary>Scenario descriptions</summary>
+          <div id="scenario-descriptions"></div>
+        </details>
+
+        <details class="methodology">
+          <summary>Methodology &amp; caveats</summary>
+          <p>
+            The World3 model used here is the original 1974 implementation via
+            <a href="https://github.com/cvanwynsberghe/pyworld3" target="_blank" rel="noopener">pyworld3</a>.
+            Real-world series are normalized to 1970 = 1.0 to align units;
+            the comparison is directional, not absolute calibration.
+          </p>
+          <p>
+            <strong>Variable proxies</strong> (Herrington 2021):
+          </p>
+          <ul>
+            <li><em>Industrial output / capita</em> — GDP per capita (constant 2015 USD), World Bank.</li>
+            <li><em>Food per capita</em> — daily kcal supply, FAO via Our World in Data.</li>
+            <li><em>Persistent pollution</em> — CO₂ ppm (NOAA Mauna Loa) plus annual plastic production (OWID), composite index.</li>
+            <li><em>Services per capita</em> — mean years of schooling (UNDP via OWID).</li>
+            <li><em>Population</em> — direct, World Bank.</li>
+          </ul>
+          <p>
+            <strong>Caveats:</strong> mean-years-of-schooling has sparse
+            coverage; the pollution composite mixes a stock (CO₂) with a flow
+            (plastic). World3 was never intended for point-prediction —
+            evaluate trajectory shape, not single-year levels.
+          </p>
+          <p>
+            Full methodology:
+            <a href="https://github.com/Alzxcvb/world3-dashboard/blob/main/docs/METHODOLOGY.md" target="_blank" rel="noopener">docs/METHODOLOGY.md</a>.
+          </p>
+        </details>
+
+        <footer class="footer">
+          <p>
+            Sources: World Bank Open Data, NOAA GML, Our World in Data, FAO,
+            UNDP. Model: pyworld3 (Meadows et al., 1972). Methodology after
+            Herrington (2021) and Nebel et al. (2024).
+          </p>
+          <p>
+            <a href="https://github.com/Alzxcvb/world3-dashboard" target="_blank" rel="noopener">GitHub</a> ·
+            <a href="https://doi.org/10.1111/jiec.13084" target="_blank" rel="noopener">Herrington 2021</a> ·
+            <a href="https://github.com/cvanwynsberghe/pyworld3" target="_blank" rel="noopener">pyworld3</a>
+          </p>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

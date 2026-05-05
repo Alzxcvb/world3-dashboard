@@ -33,14 +33,20 @@ See [docs/SCOPE.md](docs/SCOPE.md) for technical scope and architecture.
 
 ```bash
 pip install -r requirements.txt
-streamlit run src/app.py
+streamlit run src/app.py        # interactive Streamlit app (development)
 ```
 
-## Deploy (Streamlit Community Cloud)
+For the static build (what's deployed):
 
-1. Sign in at https://share.streamlit.io with the GitHub account that owns this repo.
-2. Click **New app** → select `Alzxcvb/world3-dashboard`, branch `main`, main file `src/app.py`.
-3. Deploy. Free tier is sufficient; cached real-world data ships in the repo so first load works without API calls.
+```bash
+python3 web/build_data.py
+cd web/public && python3 -m http.server 8000
+```
+
+## Deployments
+
+- **Static dashboard** (always-on, no auth, no cold start) — `web/` deploys to Vercel as a pure static site. Pre-computed scenarios + bundled real-world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. A monthly GitHub Action (`.github/workflows/refresh-data.yml`) re-runs the data fetcher and rebuilds the JSON. See [`web/README.md`](web/README.md).
+- **Streamlit app** (legacy / interactive sandbox) — `src/app.py` still runs on Streamlit Community Cloud and is useful for quick iteration. The static build is the canonical public URL.
 
 ## Tech Stack
 
