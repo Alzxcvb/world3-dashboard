@@ -33,8 +33,9 @@
 
 ## Month 2: June 2026 — The Bibliometric Paper
 
-### Post 3: "I Read 2,847 Papers About Civilizational Collapse So You Don't Have To"
+### Post 3: "I Read More Than 2,600 Papers About Civilizational Collapse So You Don't Have To"
 - **Hook:** The academic literature on polycrisis has exploded since 2020. I mapped the entire field to find out who's doing the real work and who's just citing each other.
+- **Paper count (verified 2026-07-18 against data files):** 1,500 polycrisis + 1,154 refined limits-to-growth papers = 2,616 unique (only 7 appear in both). Use "more than 2,600." The old "2,847" was wrong; do not use it.
 - **Key data:** Bibliometric network visualization — co-citation clusters, burst terms timeline, top journals. Pull from the OpenAlex bibliometric analysis.
 - **CTA:** Link to preprint (if ready) or detailed methodology post.
 - **Expert to ping:** Michael Lawrence (Global Sustainability journal editor, coined "polycrisis" in academic context). Cold email with link to the analysis.
@@ -88,7 +89,7 @@
 - **Expert to ping:** Charles van Wynsberghe (pyworld3 library author — acknowledge his work, potential collaboration).
 
 ### Post 10: "What the Polycrisis Literature Misses (Bibliometric Gaps)"
-- **Hook:** After mapping 2,847 papers, I found three major blind spots in the polycrisis research field. These gaps are where the next important work will happen.
+- **Hook:** After mapping more than 2,600 papers, I found three major blind spots in the polycrisis research field. These gaps are where the next important work will happen.
 - **Key data:** Bibliometric gap analysis — under-researched intersections, missing geographic perspectives, disconnected citation clusters.
 - **CTA:** "If you're a researcher looking for a thesis topic, start here."
 - **Expert to ping:** Michael Lawrence (this directly speaks to his editorial role — what should Global Sustainability publish next?).
