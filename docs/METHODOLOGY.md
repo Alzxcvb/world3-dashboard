@@ -47,6 +47,17 @@ deviates more from model output (the model was tuned to match up to ~1970).
 | Birth Rate | (cbr) | Crude birth rate | World Bank | SP.DYN.CBRT.IN | Excellent |
 | Death Rate | (cdr) | Crude death rate | World Bank | SP.DYN.CDRT.IN | Excellent |
 
+### Status note, 2026-09-13
+
+What the live site actually uses today (see `src/fetch_real_data.py` and the
+page's methodology panel): population and GDP per capita from the World Bank
+(through 2025), daily kcal per capita from FAO via OWID (through 2023), the
+CO2 plus plastics pollution composite (ends 2019 with the plastics series,
+nothing carried forward), and mean years of schooling from UNDP via OWID
+(through 2020) as the services proxy. The services discussion below was written
+when life expectancy was the proxy and is kept for the reasoning; the current
+proxy is mean years of schooling.
+
 ### Herrington's Original Proxies (for comparison)
 
 | World3 Variable | Herrington's Proxy | Herrington's Source |
@@ -123,9 +134,14 @@ mapping in the dashboard.
 4. **Regulatory response**: World3 does not model policy feedback. In reality,
    societies banned the worst pollutants when damage became visible.
 
-**Herrington's approach**: Used CO2 + plastic production as a composite. We
-currently use CO2 only. Adding ecological footprint data (Global Footprint
-Network) would improve coverage.
+**Herrington's approach**: Used CO2 + plastic production as a composite. The
+dashboard follows that: the composite is the mean of CO2 and plastic
+production, each indexed to 1970, computed only for years where both inputs
+are real measurements. The OWID plastics series ends in 2019 and skips 1974,
+so the composite ends in 2019 and has no 1974 point; nothing is carried
+forward, because held values moved the scenario fit table by up to 197 percent
+on points the source never published (review of 2026-09-13). Adding ecological
+footprint data (Global Footprint Network) would improve coverage.
 
 ### Services Per Capita -- Weak Match
 
