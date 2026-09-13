@@ -320,24 +320,22 @@ def compute_pollution_composite(df):
         return
 
     co2_norm = df["co2_ppm"] / co2_base
+    plastic_norm = df["plastic_production"] / plastic_base
 
-    # Forward-fill plastic production for years after the last data point.
-    # Plastic data ends at 2019; real production has likely grown since,
-    # so carrying 2019 forward is conservative (underestimates).
-    plastic_filled = df["plastic_production"].ffill()
-    plastic_norm = plastic_filled / plastic_base
-
-    # Average the two normalized series where at least CO2 exists
-    # (plastic is forward-filled so it won't gap out).
-    has_co2 = co2_norm.notna()
-    has_plastic = plastic_norm.notna()
-    both = has_co2 & has_plastic
+    # Only years where BOTH inputs are real measurements get a composite.
+    # The OWID plastics series ends in 2019 and skips 1974; carrying the
+    # last value forward (or across a gap) would publish a number the
+    # source never reported, and it moves the scenario fit table by up to
+    # 197 percent on those synthetic points (review of 2026-09-13). So the
+    # composite ends where plastics data ends, and the CO2 series alone is
+    # not used as a stand in.
+    both = co2_norm.notna() & plastic_norm.notna()
     df["pollution_composite"] = np.where(
-        both, (co2_norm + plastic_norm) / 2,
-        np.where(has_co2, co2_norm, np.nan),
+        both, (co2_norm + plastic_norm) / 2, np.nan
     )
 
-    print("  Computed pollution_composite (CO2 + plastic, normalized avg)")
+    print("  Computed pollution_composite (CO2 + plastic, normalized avg, "
+          "real values only)")
 
 
 # ── Cache Utilities ──────────────────────────────────────────────────────────
