@@ -83,12 +83,19 @@ def normalize_real(df: pd.DataFrame, col: str, base_year: int) -> tuple[list[int
 
 def compute_rmse(model_time: list[float], model_norm: list[float],
                  real_years: list[int], real_vals: list[float]) -> float:
-    if not real_years:
+    # Score only real points inside the model's own time range. np.interp
+    # clamps outside it, so a schooling point from 1870 would otherwise be
+    # compared against the model's 1900 value (review of 2026-09-13).
+    lo, hi = float(model_time[0]), float(model_time[-1])
+    pairs = [(y, v) for y, v in zip(real_years, real_vals) if lo <= y <= hi]
+    if not pairs:
         return float("nan")
-    interp = np.interp(np.array(real_years, dtype=float),
+    years = np.array([p[0] for p in pairs], dtype=float)
+    vals = np.array([p[1] for p in pairs], dtype=float)
+    interp = np.interp(years,
                        np.array(model_time, dtype=float),
                        np.array(model_norm, dtype=float))
-    diff = interp - np.array(real_vals, dtype=float)
+    diff = interp - vals
     return float(np.sqrt(np.mean(diff ** 2)))
 
 
