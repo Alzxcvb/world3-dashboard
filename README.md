@@ -53,7 +53,7 @@ cd web/public && python3 -m http.server 8000
 
 ## Tech Stack
 
-- **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (pip installable) + 1974 defaults as the base with per scenario overrides (Nebel 2024 recalibration via [PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) is planned, not integrated)
+- **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (pip installable) + 1974 defaults as the base with per scenario overrides (the World3-03 (2004) model is provided by [PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03); the Nebel 2024 recalibration is a separate paper, planned, not integrated)
 - **Data:** World Bank API, NOAA CO2 flat text file, Our World in Data CSVs (FAO, UNDP, plastics)
 - **Frontend:** Static HTML + Plotly.js (`web/public/`), plus a Streamlit app for local use (`src/app.py`)
 - **Hosting:** Vercel (static site from `web/`)

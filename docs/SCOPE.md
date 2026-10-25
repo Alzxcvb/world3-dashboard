@@ -32,7 +32,7 @@ The diagram shows the Streamlit app (`src/app.py`). The deployed site is a stati
 ### 1. World3 Model Integration (200-400 LOC)
 - Status: the code runs the 1974 pyworld3 defaults; the Nebel layer below is planned, not integrated (`src/scenarios.py:11-20`)
 - Base: `cvanwynsberghe/pyworld3` (pip install pyworld3)
-- Layer: Nebel et al. 2024 recalibrated parameters from `TimSchell98/PyWorld3-03`
+- Layer (planned): Nebel et al. 2024 recalibrated parameters, taken from the paper; `TimSchell98/PyWorld3-03` provides the World3-03 (2004) model
 - Run standard scenarios: BAU, BAU2, CT, SW (stabilized world)
 - Output: Time series for the 7 variables in `KEY_VARIABLES` (`src/scenarios.py:100-143`), 1900 to 2100
 
@@ -92,7 +92,7 @@ and the basis for any future paper.
 | Repo | What to Use |
 |------|-------------|
 | [cvanwynsberghe/pyworld3](https://github.com/cvanwynsberghe/pyworld3) | Core model, pip installable, clean API |
-| [TimSchell98/PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) | 2024 recalibration parameters |
+| [TimSchell98/PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) | World3-03 (2004) model; does not include the Nebel 2024 recalibration |
 | [worlddynamics/WorldDynamics.jl](https://github.com/worlddynamics/WorldDynamics.jl) | Reference (Julia), includes Earth4All |
 
 ## Competition Analysis
