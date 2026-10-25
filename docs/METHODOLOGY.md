@@ -39,9 +39,9 @@ deviates more from model output (the model was tuned to match up to ~1970).
 |---|---|---|---|---|---|
 | Population | `pop` | World population | World Bank | SP.POP.TOTL | Excellent |
 | Industrial Output/Cap | `iopc` | GDP per capita (constant 2015 USD) | World Bank | NY.GDP.PCAP.KD | Good |
-| Food Per Capita | `fpc` | Food production index / population growth index | World Bank (computed) | AG.PRD.FOOD.XD / SP.POP.TOTL | Moderate |
-| Persistent Pollution | `ppol` | CO2 concentration (ppm) | NOAA Mauna Loa | -- | Weak |
-| Services Per Capita | `sopc` | Life expectancy at birth | World Bank | SP.DYN.LE00.IN | Weak |
+| Food Per Capita | `fpc` | Daily calorie supply (kcal/person/day) | FAO via Our World in Data | grapher `daily-per-capita-caloric-supply` | Moderate |
+| Persistent Pollution | `ppol` | Composite of CO2 (ppm) and plastic production, each normalized to 1970 | NOAA Mauna Loa annual mean + Our World in Data | grapher `global-plastics-production` | Weak |
+| Services Per Capita | `sopc` | Mean years of schooling | UNDP via Our World in Data | grapher `mean-years-of-schooling-long-run` | Weak |
 | Nonrenewable Resources | `nr` | (not yet implemented) | -- | -- | -- |
 | Arable Land | `al` | Arable land (hectares) | World Bank | AG.LND.ARBL.HA | Good |
 | Birth Rate | (cbr) | Crude birth rate | World Bank | SP.DYN.CBRT.IN | Excellent |
@@ -56,7 +56,13 @@ CO2 plus plastics pollution composite (ends 2019 with the plastics series,
 nothing carried forward), and mean years of schooling from UNDP via OWID
 (through 2020) as the services proxy. The services discussion below was written
 when life expectancy was the proxy and is kept for the reasoning; the current
-proxy is mean years of schooling.
+proxy is mean years of schooling. The table rows above, the Food Per Capita
+section and the Persistent Pollution section below describe earlier proxies
+(food production index, CO2 alone) kept for the reasoning. The World Bank
+indicators the code fetches are `SP.POP.TOTL`, `NY.GDP.PCAP.KD`,
+`AG.LND.ARBL.HA`, `SP.DYN.LE00.IN`, `SP.DYN.CBRT.IN` and `SP.DYN.CDRT.IN`
+(`src/fetch_real_data.py:53-82`). Life expectancy, arable land, birth rate and
+death rate are fetched but not used in the overlay (`src/overlay.py:30-61`).
 
 ### Herrington's Original Proxies (for comparison)
 
@@ -166,8 +172,9 @@ footprint data (Global Footprint Network) would improve coverage.
 education and health as % of GDP. This is closer to an economic input measure
 and avoids the saturation problem.
 
-**Our mitigation**: We also fetch education expenditure (% GDP) as a secondary
-indicator (`SE.XPD.TOTL.GD.ZS`), though it is not yet used in the overlay.
+**Our mitigation**: The overlay now uses mean years of schooling (UNDP via Our
+World in Data) instead. Education expenditure (`SE.XPD.TOTL.GD.ZS`) is not
+fetched by the code.
 
 ## Model Version Note
 
@@ -208,7 +215,7 @@ paper (DOI: 10.1111/jiec.13442).
 
 | Source | URL | Auth Required | Variables |
 |---|---|---|---|
-| World Bank Open Data | api.worldbank.org/v2/ | No | Population, GDP, food, life expectancy, education, birth/death rates, arable land |
+| World Bank Open Data | api.worldbank.org/v2/ | No | Population, GDP per capita, life expectancy, birth and death rates, arable land |
 | NOAA GML | gml.noaa.gov | No | CO2 concentration (Mauna Loa annual mean) |
 | Our World in Data | ourworldindata.org/grapher | No | Daily calorie supply (FAO), plastic production, mean years of schooling (UNDP) |
 

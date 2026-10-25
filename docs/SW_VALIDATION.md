@@ -1,12 +1,12 @@
 # SW (Stabilized World) Scenario: Validation Note
 
-This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64 to 96) changes relative to the base run (`run_bau`, lines 28 to 36), where the code names a source, and what is not verified. Everything below is read from the code and existing docs. The model was not run to write this note (pyworld3 is not installed in the environment used), so no output values are quoted.
+This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64 to 96) changes relative to the base run (`run_bau`, lines 28 to 36), where the code names a source, and what is not verified. Everything below is read from the code, existing docs and the pyworld3 source named where used. The model was not run to write this note (pyworld3 is not installed in the environment used), so no output values are quoted.
 
 ## What the code says SW is
 
 `run_sw` describes itself as "Stabilized World (Scenario 9)", a full policy bundle of population, economy and technology measures applied together from 2002, and as "the only scenario in Meadows et al. (2004) that avoids overshoot and achieves a sustainable equilibrium" (`src/scenarios.py:65` to `67`; the module header at line 9 repeats the Scenario 9 label). The dashboard text in `web/build_data.py` and `src/app.py` repeats this description.
 
-Source named: Meadows, Randers and Meadows (2004), *Limits to Growth: The 30-Year Update*, Chelsea Green Publishing (the 2004 date and publisher match the bibliographic record at DOI 10.5944/empiria.10.2005.1051; the publisher page could not be fetched, and no page or table number is cited in the code or docs). The Scenario 9 claim is not verified against the source.
+Source named: Meadows, Randers and Meadows (2004), *Limits to Growth: The 30-Year Update*, Chelsea Green Publishing (the book itself was not fetched; DOI 10.5944/empiria.10.2005.1051 is a Crossref record of a 2005 journal review of the book in Empiria, which lists "Chelsea Green, 2004", so it is a secondary record, not the book; no page or table number is cited in the code or docs). The Scenario 9 claim is not verified against the source.
 
 ## Parameters changed relative to the base run
 
@@ -25,7 +25,7 @@ The base run calls `init_world3_constants()` with no arguments (`src/scenarios.p
 | `lyf2` | 1.2 | land yield factor (ag tech) | none |
 | `alai2` | 1 | arable land adjustment after policy year | none |
 
-The pyworld3 default values these replace were not read for this note, so the size of each change is not verified. The comments are the code author's labels. They were not checked against the pyworld3 source or documentation.
+Defaults these replace, read from the pyworld3 master branch (world3.py lines 106 to 121, https://raw.githubusercontent.com/cvanwynsberghe/pyworld3/master/pyworld3/world3.py): `zpgt`, `pet`, `fcest`, `iet` = 4000; `iopcd` = 400; `nruf2`, `ppgf2`, `ppgf21` = 1; `lyf2` = 1; `alai2` = 2. Whether the pip release matches master was not checked. The comments are the code author's labels. They were not checked against the pyworld3 source or documentation.
 
 Not changed in SW: `nri` (initial nonrenewable resources). BAU2 and CT both set `nri=2e12` (`src/scenarios.py:42`, `54`); SW does not, so it starts from the default resource stock. CT sets `nruf2=0.125` (`src/scenarios.py:55`) and SW sets `nruf2=0.1`.
 
@@ -35,13 +35,13 @@ Values the code deliberately does not use: the docstring says an earlier spec in
 
 The docstring says the chosen switches produce "the correct qualitative SW behavior: population stabilizes near 6B, resources are conserved, no overshoot collapse" (`src/scenarios.py:73` to `74`). Not verified against the source, and not re run for this note.
 
-Known mismatch: `tasks/todo.md` line 11 and line 31 record a smoke test where SW peaks at 6.03B in 2019 and stabilizes near 6B. Published Scenario 9 is commonly reported as ending near 8 billion people, not verified here (the synopsis page I tried to fetch was blocked). The code's header also says partial 2004 corrections dropped the BAU peak population to 6B "vs. real 8B" (`src/scenarios.py:15` to `16`), which is about the real world, not Scenario 9. So the 1974 based SW should not be read as matching the published population path.
+Known mismatch: `tasks/todo.md` line 11 and line 31 record a smoke test where SW peaks at 6.03B in 2019 and stabilizes near 6B. The published Scenario 9 trajectory was not checked against this code. The code's header also says partial 2004 corrections dropped the BAU peak population to 6B "vs. real 8B" (`src/scenarios.py:15` to `16`), which is about the real world, not Scenario 9. So the 1974 based SW should not be read as matching the published population path.
 
 ## Assumptions
 
 1. The pip installable pyworld3 is the 1974 World3, and `docs/METHODOLOGY.md` ("Model Version Note") says the same.
-2. The four 2002 switches act as the policy year for population and industrial measures in that version.
-3. The technology values (`nruf2`, `ppgf2`, `ppgf21`, `lyf2`, `alai2`) take effect after a policy year that `run_sw` does not set, so the model's default policy year applies. That default was not checked.
+2. `zpgt`, `pet`, `fcest` and `iet` are compared against model time in the pyworld3 population and capital sectors (`population.py` lines 850, 921, 945 and `capital.py` line 561 at the master branch), so the value 2002 sets the year they switch on. Their defaults are 4000.
+3. The technology values (`nruf2`, `ppgf2`, `ppgf21`, `lyf2`, `alai2`) are documented in pyworld3 as the value "after time=pyear". The World3 constructor default is `pyear=1975` (https://raw.githubusercontent.com/cvanwynsberghe/pyworld3/master/pyworld3/world3.py, line 94), and `run_sw` builds `World3(dt=0.5, year_min=1900, year_max=2100)` without `pyear` (`src/scenarios.py:76`). So per that source these five values take effect from 1975, not 2002, which contradicts the code header's "applied together from 2002" for the technology part. Read from the master branch on 2026-10-25; the version installed by `pip install pyworld3` was not checked.
 4. The 2002 start date is taken from the 2004 scenario description as the code author recorded it.
 
 ## Limitations of adapting a 1974 scenario

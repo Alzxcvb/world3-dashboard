@@ -8,7 +8,7 @@ In 1972, the Club of Rome published *The Limits to Growth*, using the World3 com
 
 In 2021, Gaya Herrington (then at KPMG) updated the comparison with 40+ years of real data and found we're tracking the "BAU2" and "CT" (comprehensive technology) scenarios — both of which lead to decline around 2030-2040.
 
-**Nobody has built a live, publicly accessible dashboard that shows this in real time.** This project fills that gap.
+**Nobody has built a live, publicly accessible dashboard that shows this against cached data refreshed monthly.** This project fills that gap.
 
 ## What It Does
 
@@ -49,11 +49,11 @@ cd web/public && python3 -m http.server 8000
 
 - **Live URL:** https://world3-dashboard.vercel.app
 - **Static dashboard** (always-on, no auth, no cold start) — `web/` deploys to Vercel as a pure static site. Pre-computed scenarios + bundled real-world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. A monthly GitHub Action (`.github/workflows/refresh-data.yml`) re-runs the data fetcher and rebuilds the JSON. See [`web/README.md`](web/README.md).
-- **Streamlit app** (local use) — `src/app.py` is an interactive Streamlit app for quick iteration. The static build is the canonical public URL.
+- **Streamlit app** (local use): `src/app.py` is an interactive Streamlit app for quick iteration. The static build is the canonical public URL.
 
 ## Tech Stack
 
-- **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (339 stars, pip installable) + 1974 defaults as the base with per scenario overrides (Nebel 2024 recalibration via [PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) is planned, not integrated)
+- **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (pip installable) + 1974 defaults as the base with per scenario overrides (Nebel 2024 recalibration via [PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) is planned, not integrated)
 - **Data:** World Bank API, NOAA CO2 data, Our World in Data CSVs (FAO, UNDP, plastics)
 - **Frontend:** Static HTML + Plotly.js (`web/public/`), plus a Streamlit app for local use (`src/app.py`)
 - **Hosting:** Vercel (static site from `web/`)

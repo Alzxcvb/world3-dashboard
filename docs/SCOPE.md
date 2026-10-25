@@ -7,7 +7,7 @@
 │                   Streamlit Frontend                 │
 │  ┌──────────┐  ┌──────────┐  ┌───────────────────┐  │
 │  │ Scenario  │  │ "You Are │  │   User Controls   │  │
-│  │  Charts   │  │  Here"   │  │  (view, filters) │  │
+│  │  Charts   │  │  Here"   │  │  (view, filters)  │  │
 │  └──────────┘  └──────────┘  └───────────────────┘  │
 └───────────────────────┬─────────────────────────────┘
                         │
@@ -82,16 +82,16 @@ and the basis for any future paper.
 
 ### 6. Data Caching & Refresh (100-200 LOC)
 - Cache real-world data locally (SQLite or JSON files)
-- Refresh schedule: Annual (most data is annual)
+- Refresh schedule: monthly, via `.github/workflows/refresh-data.yml` (currently untracked in git, so not yet in the public repo)
 - Stale data warnings in UI
 
 ## Existing Code to Build On
 
-| Repo | Stars | What to Use |
-|------|-------|-------------|
-| [cvanwynsberghe/pyworld3](https://github.com/cvanwynsberghe/pyworld3) | 339 | Core model, pip-installable, clean API |
-| [TimSchell98/PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) | 42 | 2024 recalibration parameters |
-| [worlddynamics/WorldDynamics.jl](https://github.com/worlddynamics/WorldDynamics.jl) | 73 | Reference (Julia), includes Earth4All |
+| Repo | What to Use |
+|------|-------------|
+| [cvanwynsberghe/pyworld3](https://github.com/cvanwynsberghe/pyworld3) | Core model, pip installable, clean API |
+| [TimSchell98/PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) | 2024 recalibration parameters |
+| [worlddynamics/WorldDynamics.jl](https://github.com/worlddynamics/WorldDynamics.jl) | Reference (Julia), includes Earth4All |
 
 ## Competition Analysis
 
