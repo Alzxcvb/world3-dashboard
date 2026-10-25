@@ -9,7 +9,7 @@ with modifications noted below.
 - Herrington, G. (2021). "Update to limits to growth: Comparing the World3
   model with empirical data." *Journal of Industrial Ecology*, 25(3), 614-626.
   DOI: [10.1111/jiec.13084](https://doi.org/10.1111/jiec.13084)
-- Nebel, A., Nebel, A., Moutarde, R., & Sciarretta, A. (2024). "Recalibration
+- Nebel, A., Kling, A., Willamowski, R., & Schell, T. (2024). "Recalibration
   of limits to growth: An update of the World3 model." *Journal of Industrial
   Ecology*, 28(1), 87-99. DOI: [10.1111/jiec.13442](https://doi.org/10.1111/jiec.13442)
 - Turner, G. (2008, 2012, 2014). Validation studies comparing World3 to empirical data.
@@ -174,7 +174,7 @@ indicator (`SE.XPD.TOTL.GD.ZS`), though it is not yet used in the overlay.
 The pip-installable `pyworld3` package implements the **1974 version** of World3
 (from *Dynamics of Growth in a Finite World*). This differs from the **2004
 World3-03 version** used in *Limits to Growth: The 30-Year Update* (Meadows et
-al., 2005) and by both Herrington (2021) and Nebel et al. (2024).
+al., 2004) and by both Herrington (2021) and Nebel et al. (2024).
 
 Key differences between 1974 and 2004 versions:
 - `dcfsn` (desired completed family size): 4.0 (1974) vs. 3.8 (2004)
@@ -202,7 +202,7 @@ paper (DOI: 10.1111/jiec.13442).
 | BAU | Business As Usual | No policy changes | Default constants |
 | BAU2 | Double Resources | 2x nonrenewable resources | `nri=2e12` |
 | CT | Comprehensive Technology | Resource efficiency + pollution control | `nri=2e12, nruf2=0.125` |
-| SW | Stabilized World | Population + industrial output control + technology bundle from 2002 | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (see [SW_VALIDATION.md](SW_VALIDATION.md)) |
+| SW | Stabilized World | Population + industrial output control + technology values (the four switches are set to 2002; see SW_VALIDATION.md for the technology assumptions) | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (see [SW_VALIDATION.md](SW_VALIDATION.md)) |
 
 ## Data Sources
 

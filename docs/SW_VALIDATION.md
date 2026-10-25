@@ -6,7 +6,7 @@ This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64
 
 `run_sw` describes itself as "Stabilized World (Scenario 9)", a full policy bundle of population, economy and technology measures applied together from 2002, and as "the only scenario in Meadows et al. (2004) that avoids overshoot and achieves a sustainable equilibrium" (`src/scenarios.py:65` to `67`; the module header at line 9 repeats the Scenario 9 label). The dashboard text in `web/build_data.py` and `src/app.py` repeats this description.
 
-Source named: Meadows et al. (2004), *Limits to Growth: The 30-Year Update*. No page, table or scenario table is cited in the code or docs, so the Scenario 9 claim is not verified against the source.
+Source named: Meadows, Randers and Meadows (2004), *Limits to Growth: The 30-Year Update*, Chelsea Green Publishing (the 2004 date and publisher match the bibliographic record at DOI 10.5944/empiria.10.2005.1051; the publisher page could not be fetched, and no page or table number is cited in the code or docs). The Scenario 9 claim is not verified against the source.
 
 ## Parameters changed relative to the base run
 
@@ -35,6 +35,8 @@ Values the code deliberately does not use: the docstring says an earlier spec in
 
 The docstring says the chosen switches produce "the correct qualitative SW behavior: population stabilizes near 6B, resources are conserved, no overshoot collapse" (`src/scenarios.py:73` to `74`). Not verified against the source, and not re run for this note.
 
+Known mismatch: `tasks/todo.md` line 11 and line 31 record a smoke test where SW peaks at 6.03B in 2019 and stabilizes near 6B. Published Scenario 9 is commonly reported as ending near 8 billion people, not verified here (the synopsis page I tried to fetch was blocked). The code's header also says partial 2004 corrections dropped the BAU peak population to 6B "vs. real 8B" (`src/scenarios.py:15` to `16`), which is about the real world, not Scenario 9. So the 1974 based SW should not be read as matching the published population path.
+
 ## Assumptions
 
 1. The pip installable pyworld3 is the 1974 World3, and `docs/METHODOLOGY.md` ("Model Version Note") says the same.
@@ -44,9 +46,9 @@ The docstring says the chosen switches produce "the correct qualitative SW behav
 
 ## Limitations of adapting a 1974 scenario
 
-1. Scenario 9 belongs to the 2004 World3-03 update. The code runs the 1974 model, so SW here is a qualitative stand in, not a reproduction of the published run (`src/scenarios.py:11` to `17`).
+1. The code attributes Scenario 9 to Meadows et al. (2004), which is the World3-03 update. The code runs the 1974 model, so SW here is a qualitative stand in, not a reproduction of the published run (`src/scenarios.py:11` to `17`).
 2. `docs/METHODOLOGY.md` lists differences between the 1974 and 2004 versions, including `dcfsn` and `alln` defaults and extra policy year parameters in 2004. The 2004 parameter and table set is not applied.
 3. The Nebel et al. (2024) recalibration is not integrated (`src/scenarios.py:19` to `20`), so SW is not calibrated to 1970 to 2020 data.
-4. The code notes that applying only some 2004 corrections made results worse (`src/scenarios.py:13` to `16`), which is why the parameters are not mixed.
+4. The code notes that applying only some 2004 corrections made results worse (`src/scenarios.py:13` to `16`).
 5. Because the base run and SW share the 1974 structure but differ in about ten constants, the SW curves should be read as directional. The dashboard's own methodology text says the comparison "is directional, not absolute calibration" (`web/public/index.html`).
 6. Before SW is presented as a canonical Scenario 9, each value above needs to be checked against Meadows et al. (2004) and, where relevant, Nebel et al. (2024). This was an open item in `tasks/todo.md`.

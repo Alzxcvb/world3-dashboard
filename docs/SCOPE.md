@@ -7,7 +7,7 @@
 │                   Streamlit Frontend                 │
 │  ┌──────────┐  ┌──────────┐  ┌───────────────────┐  │
 │  │ Scenario  │  │ "You Are │  │   User Controls   │  │
-│  │  Charts   │  │  Here"   │  │  (sliders/params) │  │
+│  │  Charts   │  │  Here"   │  │  (view, filters) │  │
 │  └──────────┘  └──────────┘  └───────────────────┘  │
 └───────────────────────┬─────────────────────────────┘
                         │
@@ -35,7 +35,7 @@
 - Output: Time series for ~29 key variables, 1900-2100
 
 ### 2. Data Pipeline (500-800 LOC)
-Five public API sources, each with a fetcher module:
+Planned sources (implemented today: World Bank, NOAA, and Our World in Data for FAO, UNDP and plastics; IMF, the `faostat` package and UN SDG are not used by the code):
 
 | Source | API | Variables | Auth |
 |--------|-----|-----------|------|
@@ -75,7 +75,7 @@ and the basis for any future paper.
 ### 5. Streamlit Frontend (400-700 LOC)
 - Main chart: All scenarios overlaid + "You Are Here" dot for real data
 - Variable selector: Choose which World3 variable to view
-- Time range slider: Zoom in/out on timeline
+- Year range slider: Zoom in/out on timeline
 - Scenario descriptions: What each scenario assumes
 - Data freshness indicator: When data was last updated
 - Export: Download chart as PNG, data as CSV
@@ -95,7 +95,7 @@ and the basis for any future paper.
 
 ## Competition Analysis
 
-**There is no live World3 dashboard with real-time data.** The space is empty:
+**There is no live World3 dashboard with real world data overlaid.** The space is empty:
 - world3simulator.org — domain dead
 - En-ROADS (climateinteractive.org) — climate-only, not World3
 - Earth4All simulator — Julia, not data-fed, different model (700 variables)
@@ -128,5 +128,5 @@ This does not include the cost of this scoping research session.
 A paper could accompany the dashboard:
 - **Title:** "Where Are We on the Limits to Growth? A Live Dashboard Comparing World3 Scenarios to Empirical Data"
 - **Target:** Journal of Industrial Ecology (where Herrington and Nebel published)
-- **Contribution:** First publicly accessible, reproducible, real-time comparison tool
+- **Contribution:** First publicly accessible, reproducible comparison tool with a monthly data refresh
 - **Methodology section** documents the variable mapping decisions (the academic value)
