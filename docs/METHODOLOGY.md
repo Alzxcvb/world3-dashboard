@@ -42,10 +42,10 @@ deviates more from model output (the model was tuned to match up to ~1970).
 | Food Per Capita | `fpc` | Daily calorie supply (kcal/person/day) | FAO via Our World in Data | grapher `daily-per-capita-caloric-supply` | Moderate |
 | Persistent Pollution | `ppol` | Composite of CO2 (ppm) and plastic production, each normalized to 1970 | NOAA Mauna Loa annual mean + Our World in Data | grapher `global-plastics-production` | Weak |
 | Services Per Capita | `sopc` | Mean years of schooling | UNDP via Our World in Data | grapher `mean-years-of-schooling-long-run` | Weak |
-| Nonrenewable Resources | `nr` | (not yet implemented) | -- | -- | -- |
-| Arable Land | `al` | Arable land (hectares) | World Bank | AG.LND.ARBL.HA | Good |
-| Birth Rate | (cbr) | Crude birth rate | World Bank | SP.DYN.CBRT.IN | Excellent |
-| Death Rate | (cdr) | Crude death rate | World Bank | SP.DYN.CDRT.IN | Excellent |
+| Nonrenewable Resources | `nr` | (not yet implemented) | -- | -- | Not used |
+| Arable Land | `al` | Arable land (hectares) | World Bank | AG.LND.ARBL.HA | Not used in the overlay |
+| Birth Rate | (cbr) | Crude birth rate | World Bank | SP.DYN.CBRT.IN | Not used in the overlay |
+| Death Rate | (cdr) | Crude death rate | World Bank | SP.DYN.CDRT.IN | Not used in the overlay |
 
 ### Status note, 2026-09-13
 
@@ -54,8 +54,9 @@ page's methodology panel): population and GDP per capita from the World Bank
 (through 2025), daily kcal per capita from FAO via OWID (through 2023), the
 CO2 plus plastics pollution composite (ends 2019 with the plastics series,
 nothing carried forward), and mean years of schooling from UNDP via OWID
-(through 2020) as the services proxy. The table rows above describe these
-current proxies. The Food Per Capita section below describes the earlier food
+(through 2020) as the services proxy. The first five rows of the table above describe these
+current proxies. The Nonrenewable Resources, Arable Land, Birth Rate and Death
+Rate rows are not mapped in the overlay. The Food Per Capita section below describes the earlier food
 production index approach and the Services Per Capita section describes the
 earlier life expectancy proxy, both kept for the reasoning. The Persistent
 Pollution section opens with CO2 alone and describes the current composite

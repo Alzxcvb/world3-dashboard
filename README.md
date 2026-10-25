@@ -48,7 +48,7 @@ cd web/public && python3 -m http.server 8000
 ## Deployments
 
 - **Live URL:** https://world3-dashboard.vercel.app
-- **Static dashboard** (always on, no auth, no cold start): `web/` deploys to Vercel as a pure static site. Pre-computed scenarios + bundled real world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. The data is cached. A monthly refresh workflow (`.github/workflows/refresh-data.yml`) exists in the local working tree but is not committed, so the public repo has no scheduled refresh. The site shows its data date; the bundled `data.json` has `data_freshness_utc` 2026-09-13. See [`web/README.md`](web/README.md).
+- **Static dashboard** (always on, no auth, no cold start): `web/` deploys to Vercel as a pure static site. Precomputed scenarios + bundled real world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. The data is cached. A monthly refresh workflow (`.github/workflows/refresh-data.yml`) exists in the local working tree but is not committed, so the public repo has no scheduled refresh. The site shows its data date; the bundled `data.json` has `data_freshness_utc` September 13, 2026. See [`web/README.md`](web/README.md).
 - **Streamlit app** (local use): `src/app.py` is an interactive Streamlit app for quick iteration. The static build is the canonical public URL.
 
 ## Tech Stack

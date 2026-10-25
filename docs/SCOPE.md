@@ -34,7 +34,7 @@ The diagram shows the Streamlit app (`src/app.py`). The deployed site is a stati
 - Base: `cvanwynsberghe/pyworld3` (pip install pyworld3)
 - Layer: Nebel et al. 2024 recalibrated parameters from `TimSchell98/PyWorld3-03`
 - Run standard scenarios: BAU, BAU2, CT, SW (stabilized world)
-- Output: Time series for the 7 variables in `KEY_VARIABLES` (`src/scenarios.py:100-143`), 1900-2100
+- Output: Time series for the 7 variables in `KEY_VARIABLES` (`src/scenarios.py:100-143`), 1900 to 2100
 
 ### 2. Data Pipeline (500-800 LOC)
 Planned sources (implemented today: World Bank, NOAA, and Our World in Data for FAO, UNDP and plastics; IMF, the `faostat` package and UN SDG are not used by the code):
@@ -109,8 +109,8 @@ and the basis for any future paper.
 | Phase | Work | Time |
 |-------|------|------|
 | 1. Model setup & scenarios | Install pyworld3, run standard scenarios, verify against published results | 1 week |
-| 2. Data pipeline | Build fetchers (World Bank, NOAA and Our World in Data are implemented), normalize, cache | 1-2 weeks |
-| 3. Variable mapping | Implement Herrington's proxy mappings, normalization, validation | 1-2 weeks |
+| 2. Data pipeline | Build fetchers (World Bank, NOAA and Our World in Data are implemented), normalize, cache | one to two weeks |
+| 3. Variable mapping | Implement Herrington's proxy mappings, normalization, validation | one to two weeks |
 | 4. Frontend | Streamlit app with interactive charts | 1 week |
 | 5. Polish & deploy | Error handling, deployment, documentation | 1 week |
 | **Total** | | **4-8 weeks** |
