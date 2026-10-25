@@ -54,11 +54,12 @@ page's methodology panel): population and GDP per capita from the World Bank
 (through 2025), daily kcal per capita from FAO via OWID (through 2023), the
 CO2 plus plastics pollution composite (ends 2019 with the plastics series,
 nothing carried forward), and mean years of schooling from UNDP via OWID
-(through 2020) as the services proxy. The services discussion below was written
-when life expectancy was the proxy and is kept for the reasoning; the current
-proxy is mean years of schooling. The table rows above, the Food Per Capita
-section and the Persistent Pollution section below describe earlier proxies
-(food production index, CO2 alone) kept for the reasoning. The World Bank
+(through 2020) as the services proxy. The table rows above describe these
+current proxies. The Food Per Capita section below describes the earlier food
+production index approach and the Services Per Capita section describes the
+earlier life expectancy proxy, both kept for the reasoning. The Persistent
+Pollution section opens with CO2 alone and describes the current composite
+under "Herrington's approach". The World Bank
 indicators the code fetches are `SP.POP.TOTL`, `NY.GDP.PCAP.KD`,
 `AG.LND.ARBL.HA`, `SP.DYN.LE00.IN`, `SP.DYN.CBRT.IN` and `SP.DYN.CDRT.IN`
 (`src/fetch_real_data.py:53-82`). Life expectancy, arable land, birth rate and
@@ -208,8 +209,8 @@ paper (DOI: 10.1111/jiec.13442).
 |---|---|---|---|
 | BAU | Business As Usual | No policy changes | Default constants |
 | BAU2 | Double Resources | 2x nonrenewable resources | `nri=2e12` |
-| CT | Comprehensive Technology | Resource efficiency + pollution control | `nri=2e12, nruf2=0.125` |
-| SW | Stabilized World | Population + industrial output control + technology values (the four switches are set to 2002; see SW_VALIDATION.md for the technology assumptions) | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (see [SW_VALIDATION.md](SW_VALIDATION.md)) |
+| CT | Comprehensive Technology | Doubled initial nonrenewable resources (`nri`) and a lower nonrenewable resource usage factor after the policy year (`nruf2`; pyworld3 documents it as the "nruf value after time=pyear", default 1). The code sets no pollution or agriculture parameters for CT (`src/scenarios.py:50-61`) | `nri=2e12, nruf2=0.125` |
+| SW | Stabilized World | Population + industrial output control + technology values (the four switches are set to 2002; by the pyworld3 source the technology values switch on at `pyear`, default 1975, see SW_VALIDATION.md) | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (see [SW_VALIDATION.md](SW_VALIDATION.md)) |
 
 ## Data Sources
 

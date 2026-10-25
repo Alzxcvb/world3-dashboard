@@ -25,6 +25,8 @@
    └─────────────┘ └────────┘ └─────────────┘
 ```
 
+The diagram shows the Streamlit app (`src/app.py`). The deployed site is a static page built from `web/` (see README.md).
+
 ## Components
 
 ### 1. World3 Model Integration (200-400 LOC)
@@ -32,7 +34,7 @@
 - Base: `cvanwynsberghe/pyworld3` (pip install pyworld3)
 - Layer: Nebel et al. 2024 recalibrated parameters from `TimSchell98/PyWorld3-03`
 - Run standard scenarios: BAU, BAU2, CT, SW (stabilized world)
-- Output: Time series for ~29 key variables, 1900-2100
+- Output: Time series for the 7 variables in `KEY_VARIABLES` (`src/scenarios.py:100-143`), 1900-2100
 
 ### 2. Data Pipeline (500-800 LOC)
 Planned sources (implemented today: World Bank, NOAA, and Our World in Data for FAO, UNDP and plastics; IMF, the `faostat` package and UN SDG are not used by the code):
@@ -48,7 +50,7 @@ Planned sources (implemented today: World Bank, NOAA, and Our World in Data for 
 ### 3. Variable Mapping (200-400 LOC) — THE HARD PART
 
 World3 variables are abstract. Real-world data must be mapped to approximate them.
-Herrington (2021) provides the blueprint:
+Herrington (2021) provides the blueprint. This table is the original plan; the proxies the code uses are in `docs/METHODOLOGY.md`:
 
 | World3 Variable | Real-World Proxy | Data Source |
 |----------------|-----------------|-------------|
@@ -70,7 +72,7 @@ and the basis for any future paper.
 - Run 4 standard World3 scenarios (BAU, BAU2, CT, SW)
 - Cache results (scenarios don't change between runs)
 - Compare against real data trajectory
-- Compute "closest scenario" using least-squares distance
+- Compute "closest scenario" from RMSE per variable, ranked across the five tracked variables
 
 ### 5. Streamlit Frontend (400-700 LOC)
 - Main chart: All scenarios overlaid + "You Are Here" dot for real data
@@ -78,12 +80,12 @@ and the basis for any future paper.
 - Year range slider: Zoom in/out on timeline
 - Scenario descriptions: What each scenario assumes
 - Data freshness indicator: When data was last updated
-- Export: Download chart as PNG, data as CSV
+- Not implemented: export of charts or data (`src/app.py` has no download button)
 
 ### 6. Data Caching & Refresh (100-200 LOC)
-- Cache real-world data locally (SQLite or JSON files)
+- Cache real world data locally in `data/real_world_data.csv` with metadata in `data/real_world_data_metadata.json`
 - Refresh schedule: monthly, via `.github/workflows/refresh-data.yml` (currently untracked in git, so not yet in the public repo)
-- Stale data warnings in UI
+- Data freshness caption in the Streamlit app (`src/app.py:582-584`) and a "Refresh Data (live fetch)" button (`src/app.py:467`); no stale data warning
 
 ## Existing Code to Build On
 
@@ -107,7 +109,7 @@ and the basis for any future paper.
 | Phase | Work | Time |
 |-------|------|------|
 | 1. Model setup & scenarios | Install pyworld3, run standard scenarios, verify against published results | 1 week |
-| 2. Data pipeline | Build fetchers for 5 APIs, normalize, cache | 1-2 weeks |
+| 2. Data pipeline | Build fetchers (World Bank, NOAA and Our World in Data are implemented), normalize, cache | 1-2 weeks |
 | 3. Variable mapping | Implement Herrington's proxy mappings, normalization, validation | 1-2 weeks |
 | 4. Frontend | Streamlit app with interactive charts | 1 week |
 | 5. Polish & deploy | Error handling, deployment, documentation | 1 week |

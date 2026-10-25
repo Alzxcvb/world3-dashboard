@@ -1,6 +1,6 @@
 # World3 Live Dashboard
 
-A live, interactive dashboard that runs the World3 system dynamics model (the "Limits to Growth" model) and overlays cached real world data from public APIs (refreshed monthly) to show which scenario path humanity is currently following.
+A live, interactive dashboard that runs the World3 system dynamics model (the "Limits to Growth" model) and overlays cached real world data from public APIs to show which scenario path humanity is currently following.
 
 ## Why This Exists
 
@@ -8,12 +8,12 @@ In 1972, the Club of Rome published *The Limits to Growth*, using the World3 com
 
 In 2021, Gaya Herrington (then at KPMG) updated the comparison with 40+ years of real data and found we're tracking the "BAU2" and "CT" (comprehensive technology) scenarios — both of which lead to decline around 2030-2040.
 
-**Nobody has built a live, publicly accessible dashboard that shows this against cached data refreshed monthly.** This project fills that gap.
+**Nobody has built a live, publicly accessible dashboard that shows this against cached real world data.** This project fills that gap.
 
 ## What It Does
 
 - Runs the World3 model with 1974 defaults as the base via pyworld3, and per scenario overrides for BAU2, CT and SW (the Nebel et al. 2024 recalibration is not yet integrated), for four scenarios: BAU, BAU2, CT, and SW
-- Pulls real world data from the World Bank and NOAA APIs, plus Our World in Data (FAO food supply, UNDP mean years of schooling, plastic production)
+- Pulls real world data from the World Bank API and a NOAA flat text file, plus Our World in Data (FAO food supply, UNDP mean years of schooling, plastic production)
 - Maps empirical data to World3 variables (following Herrington's methodology)
 - Shows an interactive chart: "Here are the model's scenarios. Here's where we actually are."
 - Lets users pick a variable, toggle scenarios, and set the year range. It does not have sliders for changing model parameters
@@ -48,13 +48,13 @@ cd web/public && python3 -m http.server 8000
 ## Deployments
 
 - **Live URL:** https://world3-dashboard.vercel.app
-- **Static dashboard** (always-on, no auth, no cold start) — `web/` deploys to Vercel as a pure static site. Pre-computed scenarios + bundled real-world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. A monthly GitHub Action (`.github/workflows/refresh-data.yml`) re-runs the data fetcher and rebuilds the JSON. See [`web/README.md`](web/README.md).
+- **Static dashboard** (always on, no auth, no cold start): `web/` deploys to Vercel as a pure static site. Pre-computed scenarios + bundled real world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. The data is cached. A monthly refresh workflow (`.github/workflows/refresh-data.yml`) exists in the local working tree but is not committed, so the public repo has no scheduled refresh. The site shows its data date; the bundled `data.json` has `data_freshness_utc` 2026-09-13. See [`web/README.md`](web/README.md).
 - **Streamlit app** (local use): `src/app.py` is an interactive Streamlit app for quick iteration. The static build is the canonical public URL.
 
 ## Tech Stack
 
 - **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (pip installable) + 1974 defaults as the base with per scenario overrides (Nebel 2024 recalibration via [PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) is planned, not integrated)
-- **Data:** World Bank API, NOAA CO2 data, Our World in Data CSVs (FAO, UNDP, plastics)
+- **Data:** World Bank API, NOAA CO2 flat text file, Our World in Data CSVs (FAO, UNDP, plastics)
 - **Frontend:** Static HTML + Plotly.js (`web/public/`), plus a Streamlit app for local use (`src/app.py`)
 - **Hosting:** Vercel (static site from `web/`)
 

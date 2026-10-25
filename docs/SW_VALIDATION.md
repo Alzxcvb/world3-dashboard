@@ -35,7 +35,7 @@ Values the code deliberately does not use: the docstring says an earlier spec in
 
 The docstring says the chosen switches produce "the correct qualitative SW behavior: population stabilizes near 6B, resources are conserved, no overshoot collapse" (`src/scenarios.py:73` to `74`). Not verified against the source, and not re run for this note.
 
-Known mismatch: `tasks/todo.md` line 11 and line 31 record a smoke test where SW peaks at 6.03B in 2019 and stabilizes near 6B. The published Scenario 9 trajectory was not checked against this code. The code's header also says partial 2004 corrections dropped the BAU peak population to 6B "vs. real 8B" (`src/scenarios.py:15` to `16`), which is about the real world, not Scenario 9. So the 1974 based SW should not be read as matching the published population path.
+Known mismatch: `tasks/todo.md` line 11 and line 31 record a smoke test where SW peaks at 6.03B in 2019 and stabilizes near 6B. By the pyworld3 source (assumption 3 below), the SW technology values switch on in 1975 (the `pyear` default) rather than 2002. Whether the resulting population path matches the published Scenario 9 path was not checked. The code's header also says partial 2004 corrections dropped the BAU peak population to 6B "vs. real 8B" (`src/scenarios.py:15` to `16`), which is about the real world, not Scenario 9.
 
 ## Assumptions
 
