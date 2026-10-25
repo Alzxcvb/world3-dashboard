@@ -45,9 +45,9 @@ Vercel serves `public/` directly — no build step.
 
 ## Refresh real-world data
 
-The cron job in `.github/workflows/refresh-data.yml` runs `fetch_real_data.py`
-+ `build_data.py` monthly and commits the updated CSV/JSON. To trigger a
-refresh manually, run:
+A monthly refresh workflow (`.github/workflows/refresh-data.yml`) exists in the
+local working tree but is not committed, so the public repo has no scheduled
+refresh. To refresh manually, run:
 
 ```bash
 python3 src/fetch_real_data.py
