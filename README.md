@@ -8,7 +8,7 @@ In 1972, the Club of Rome published *The Limits to Growth*, using the World3 com
 
 In 2021, Gaya Herrington (then at KPMG) updated the comparison with 40+ years of real data and found we're tracking the "BAU2" and "CT" (comprehensive technology) scenarios — both of which lead to decline around 2030-2040.
 
-**Nobody has built a live, publicly accessible dashboard that shows this against cached real world data.** This project fills that gap.
+**This project is a public dashboard that overlays cached real world data on the World3 scenarios.**
 
 ## What It Does
 

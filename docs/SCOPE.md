@@ -80,7 +80,7 @@ and the basis for any future paper.
 - Year range slider: Zoom in/out on timeline
 - Scenario descriptions: What each scenario assumes
 - Data freshness indicator: When data was last updated
-- Not implemented: export of charts or data (`src/app.py` has no download button)
+- Charts can be saved as PNG through the default Plotly toolbar. Not implemented: a CSV data export (`src/app.py` has no download button)
 
 ### 6. Data Caching & Refresh (100-200 LOC)
 - Cache real world data locally in `data/real_world_data.csv` with metadata in `data/real_world_data_metadata.json`
@@ -97,7 +97,7 @@ and the basis for any future paper.
 
 ## Competition Analysis
 
-**There is no live World3 dashboard with real world data overlaid.** The space is empty:
+Other tools found during scoping (these descriptions were not rechecked):
 - world3simulator.org — domain dead
 - En-ROADS (climateinteractive.org) — climate-only, not World3
 - Earth4All simulator — Julia, not data-fed, different model (700 variables)

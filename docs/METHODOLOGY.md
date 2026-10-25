@@ -42,7 +42,7 @@ deviates more from model output (the model was tuned to match up to ~1970).
 | Food Per Capita | `fpc` | Daily calorie supply (kcal/person/day) | FAO via Our World in Data | grapher `daily-per-capita-caloric-supply` | Moderate |
 | Persistent Pollution | `ppol` | Composite of CO2 (ppm) and plastic production, each normalized to 1970 | NOAA Mauna Loa annual mean + Our World in Data | grapher `global-plastics-production` | Weak |
 | Services Per Capita | `sopc` | Mean years of schooling | UNDP via Our World in Data | grapher `mean-years-of-schooling-long-run` | Weak |
-| Nonrenewable Resources | `nr` | (not yet implemented) | -- | -- | Not used |
+| Nonrenewable Resources | `nr` | (not yet implemented) | none | none | Not used |
 | Arable Land | `al` | Arable land (hectares) | World Bank | AG.LND.ARBL.HA | Not used in the overlay |
 | Birth Rate | (cbr) | Crude birth rate | World Bank | SP.DYN.CBRT.IN | Not used in the overlay |
 | Death Rate | (cdr) | Crude death rate | World Bank | SP.DYN.CDRT.IN | Not used in the overlay |
