@@ -6,7 +6,7 @@ This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64
 
 `run_sw` describes itself as "Stabilized World (Scenario 9)", a full policy bundle of population, economy and technology measures applied together from 2002, and as "the only scenario in Meadows et al. (2004) that avoids overshoot and achieves a sustainable equilibrium" (`src/scenarios.py:65` to `67`; the module header at line 9 repeats the Scenario 9 label). The dashboard text in `web/build_data.py` and `src/app.py` repeats this description.
 
-Source named: Meadows, Randers and Meadows (2004), *Limits to Growth: The 30-Year Update*, Chelsea Green Publishing (the book itself was not fetched; DOI 10.5944/empiria.10.2005.1051 is a Crossref record of a 2005 journal review of the book in Empiria, which lists "Chelsea Green, 2004", so it is a secondary record, not the book; no page or table number is cited in the code or docs). The Scenario 9 claim is not verified against the source.
+Source named: Meadows, Randers and Meadows (2004), *Limits to Growth: The 30-Year Update*, Chelsea Green Publishing (the book itself was not fetched; DOI 10.5944/empiria.10.2005.1051 is a Crossref record of a 2005 article in the journal Empiria whose title names the book and "Chelsea Green, 2004", so it is a secondary record, not the book; no page or table number is cited in the code or docs). The Scenario 9 claim is not verified against the source.
 
 ## Parameters changed relative to the base run
 
