@@ -12,11 +12,12 @@ In 2021, Gaya Herrington (then at KPMG) updated the comparison with 40+ years of
 
 ## What It Does
 
-- Runs the World3 model (using the 2024 Nebel et al. recalibration)
-- Pulls real-world data from World Bank, IMF, FAO, and NOAA APIs
+- Runs the World3 model with the original 1974 parameters via pyworld3 (the Nebel et al. 2024 recalibration is not yet integrated), for four scenarios: BAU, BAU2, CT, and SW
+- Pulls real-world data from the World Bank and NOAA APIs, plus Our World in Data (FAO food supply, UNDP mean years of schooling, plastic production)
 - Maps empirical data to World3 variables (following Herrington's methodology)
 - Shows an interactive chart: "Here are the model's scenarios. Here's where we actually are."
-- Lets users explore: What happens if resource efficiency improves? What if pollution doubles?
+- Lets users pick a variable, toggle scenarios, and set the year range. It does not have sliders for changing model parameters
+- Scores fit per variable by RMSE between each scenario and the real data, both normalized to 1970 = 1.0, and names the closest scenario by lowest average rank across the five tracked variables
 
 ## Project Status
 
@@ -45,15 +46,16 @@ cd web/public && python3 -m http.server 8000
 
 ## Deployments
 
+- **Live URL:** https://world3-dashboard.vercel.app
 - **Static dashboard** (always-on, no auth, no cold start) — `web/` deploys to Vercel as a pure static site. Pre-computed scenarios + bundled real-world data ship in `web/public/data.json`; the page is plain HTML + Plotly.js. A monthly GitHub Action (`.github/workflows/refresh-data.yml`) re-runs the data fetcher and rebuilds the JSON. See [`web/README.md`](web/README.md).
 - **Streamlit app** (legacy / interactive sandbox) — `src/app.py` still runs on Streamlit Community Cloud and is useful for quick iteration. The static build is the canonical public URL.
 
 ## Tech Stack
 
-- **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (339 stars, pip-installable) + [Nebel 2024 recalibration params](https://github.com/TimSchell98/PyWorld3-03)
-- **Data:** World Bank API, IMF DataMapper API, NOAA CO2 data, FAO Python package
-- **Frontend:** Streamlit (MVP) → Plotly Dash or React (later)
-- **Hosting:** TBD (Railway, Render, or Fly.io)
+- **Model:** [pyworld3](https://github.com/cvanwynsberghe/pyworld3) (339 stars, pip-installable) + 1974 default parameters (Nebel 2024 recalibration via [PyWorld3-03](https://github.com/TimSchell98/PyWorld3-03) is planned, not integrated)
+- **Data:** World Bank API, NOAA CO2 data, Our World in Data CSVs (FAO, UNDP, plastics)
+- **Frontend:** Static HTML + Plotly.js (`web/public/`), plus a Streamlit app for development (`src/app.py`)
+- **Hosting:** Vercel (static site from `web/`)
 
 ## Key References
 

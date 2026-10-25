@@ -28,6 +28,7 @@
 ## Components
 
 ### 1. World3 Model Integration (200-400 LOC)
+- Status: the code runs the 1974 pyworld3 defaults; the Nebel layer below is planned, not integrated (`src/scenarios.py:11-20`)
 - Base: `cvanwynsberghe/pyworld3` (pip install pyworld3)
 - Layer: Nebel et al. 2024 recalibrated parameters from `TimSchell98/PyWorld3-03`
 - Run standard scenarios: BAU, BAU2, CT, SW (stabilized world)

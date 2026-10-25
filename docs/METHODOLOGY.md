@@ -202,7 +202,7 @@ paper (DOI: 10.1111/jiec.13442).
 | BAU | Business As Usual | No policy changes | Default constants |
 | BAU2 | Double Resources | 2x nonrenewable resources | `nri=2e12` |
 | CT | Comprehensive Technology | Resource efficiency + pollution control | `nri=2e12, nruf2=0.125` |
-| SW | Stabilized World | Population + industrial output control | Not yet implemented |
+| SW | Stabilized World | Population + industrial output control + technology bundle from 2002 | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (see [SW_VALIDATION.md](SW_VALIDATION.md)) |
 
 ## Data Sources
 
@@ -210,6 +210,7 @@ paper (DOI: 10.1111/jiec.13442).
 |---|---|---|---|
 | World Bank Open Data | api.worldbank.org/v2/ | No | Population, GDP, food, life expectancy, education, birth/death rates, arable land |
 | NOAA GML | gml.noaa.gov | No | CO2 concentration (Mauna Loa annual mean) |
+| Our World in Data | ourworldindata.org/grapher | No | Daily calorie supply (FAO), plastic production, mean years of schooling (UNDP) |
 
 All data is cached locally in `data/real_world_data.csv` with metadata in
 `data/real_world_data_metadata.json`. The cache is refreshed by running
