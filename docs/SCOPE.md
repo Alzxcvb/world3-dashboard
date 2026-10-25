@@ -130,5 +130,5 @@ This does not include the cost of this scoping research session.
 A paper could accompany the dashboard:
 - **Title:** "Where Are We on the Limits to Growth? A Live Dashboard Comparing World3 Scenarios to Empirical Data"
 - **Target:** Journal of Industrial Ecology (where Herrington and Nebel published)
-- **Contribution:** First publicly accessible, reproducible comparison tool with a monthly data refresh
+- **Contribution:** First publicly accessible, reproducible comparison tool with a planned monthly data refresh (workflow not committed)
 - **Methodology section** documents the variable mapping decisions (the academic value)

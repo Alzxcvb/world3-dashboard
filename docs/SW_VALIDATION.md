@@ -21,7 +21,7 @@ The base run calls `init_world3_constants()` with no arguments (`src/scenarios.p
 | `iopcd` | 350 | industrial output per capita desired (cap growth) | none |
 | `nruf2` | 0.1 | resource efficiency after policy year | none |
 | `ppgf2` | 0.1 | pollution generation factor after policy year | none |
-| `ppgf21` | 0.1 | secondary pollution chain factor after policy year | none |
+| `ppgf21` | 0.1 | secondary pollution chain factor after policy year | none (may have no effect in the coupled run, see assumption 3) |
 | `lyf2` | 1.2 | land yield factor (ag tech) | none |
 | `alai2` | 1 | arable land adjustment after policy year | none |
 
@@ -41,7 +41,7 @@ Known mismatch: `tasks/todo.md` line 11 and line 31 record a smoke test where SW
 
 1. The pip installable pyworld3 is the 1974 World3, and `docs/METHODOLOGY.md` ("Model Version Note") says the same.
 2. `zpgt`, `pet`, `fcest` and `iet` are compared against model time in the pyworld3 population and capital sectors (`population.py` lines 850, 921, 945 and `capital.py` line 561 at the master branch), so the value 2002 sets the year they switch on. Their defaults are 4000.
-3. The technology values (`nruf2`, `ppgf2`, `ppgf21`, `lyf2`, `alai2`) are documented in pyworld3 as the value "after time=pyear". The World3 constructor default is `pyear=1975` (https://raw.githubusercontent.com/cvanwynsberghe/pyworld3/master/pyworld3/world3.py, line 94), and `run_sw` builds `World3(dt=0.5, year_min=1900, year_max=2100)` without `pyear` (`src/scenarios.py:76`). So per that source these five values take effect from 1975, not 2002, which contradicts the code header's "applied together from 2002" for the technology part. Read from the master branch on 2026-10-25; the version installed by `pip install pyworld3` was not checked.
+3. The technology values (`nruf2`, `ppgf2`, `lyf2`, `alai2`) are documented in pyworld3 as the value "after time=pyear". The World3 constructor default is `pyear=1975` (https://raw.githubusercontent.com/cvanwynsberghe/pyworld3/master/pyworld3/world3.py, line 94), and `run_sw` builds `World3(dt=0.5, year_min=1900, year_max=2100)` without `pyear` (`src/scenarios.py:76`). So per that source these four values take effect from 1975, not 2002, which contradicts the code header's "applied together from 2002" for the technology part. `ppgf21` is different. Its pyworld3 docstring says only "DESCRIPTION. The default is 1." (pollution.py line 102), and the code reads it only at lines 322 and 352, in `self.ppgf2 = switch(self.ppgf21, self.ppgf22[k], self.swat)`, in code that uses exogenous input functions (`pop_f`, `aiph_f`, `al_f`), which looks like the standalone pollution loop. The coupled run uses `ppgf2` through `clip(self.ppgf2, self.ppgf1, self.time[k], ...)` at line 475 (https://raw.githubusercontent.com/cvanwynsberghe/pyworld3/master/pyworld3/pollution.py). So the SW override of `ppgf21` may have no effect in the coupled run; it was not run to confirm. Read from the master branch on 2026-10-25; the version installed by `pip install pyworld3` was not checked.
 4. The 2002 start date is taken from the 2004 scenario description as the code author recorded it.
 
 ## Limitations of adapting a 1974 scenario

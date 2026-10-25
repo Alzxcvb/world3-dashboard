@@ -210,7 +210,7 @@ paper (DOI: 10.1111/jiec.13442).
 | BAU | Business As Usual | No policy changes | Default constants |
 | BAU2 | Double Resources | 2x nonrenewable resources | `nri=2e12` |
 | CT | Comprehensive Technology | Doubled initial nonrenewable resources (`nri`) and a lower nonrenewable resource usage factor after the policy year (`nruf2`; pyworld3 documents it as the "nruf value after time=pyear", default 1). The code sets no pollution or agriculture parameters for CT (`src/scenarios.py:50-61`) | `nri=2e12, nruf2=0.125` |
-| SW | Stabilized World | Population + industrial output control + technology values (the four switches are set to 2002; by the pyworld3 source the technology values switch on at `pyear`, default 1975, see SW_VALIDATION.md) | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (see [SW_VALIDATION.md](SW_VALIDATION.md)) |
+| SW | Stabilized World | Population + industrial output control + technology values (the four switches are set to 2002; by the pyworld3 source the technology values switch on at `pyear`, default 1975, see SW_VALIDATION.md) | `zpgt=pet=fcest=iet=2002, iopcd=350, nruf2=0.1, ppgf2=0.1, ppgf21=0.1, lyf2=1.2, alai2=1` (`ppgf21` may have no effect in the coupled run; see [SW_VALIDATION.md](SW_VALIDATION.md)) |
 
 ## Data Sources
 
