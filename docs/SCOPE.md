@@ -84,7 +84,7 @@ and the basis for any future paper.
 
 ### 6. Data Caching & Refresh (100-200 LOC)
 - Cache real world data locally in `data/real_world_data.csv` with metadata in `data/real_world_data_metadata.json`
-- Refresh schedule: monthly, via `.github/workflows/refresh-data.yml` (currently untracked in git, so not yet in the public repo)
+- Refresh schedule: monthly refresh planned; the public repo has no scheduled refresh workflow
 - Data freshness caption in the Streamlit app (`src/app.py:582-584`) and a "Refresh Data (live fetch)" button (`src/app.py:467`); no stale data warning
 
 ## Existing Code to Build On
@@ -130,5 +130,5 @@ This does not include the cost of this scoping research session.
 A paper could accompany the dashboard:
 - **Title:** "Where Are We on the Limits to Growth? A Live Dashboard Comparing World3 Scenarios to Empirical Data"
 - **Target:** Journal of Industrial Ecology (where Herrington and Nebel published)
-- **Contribution:** First publicly accessible, reproducible comparison tool with a planned monthly data refresh (workflow not committed)
+- **Contribution:** First publicly accessible, reproducible comparison tool with a planned monthly data refresh
 - **Methodology section** documents the variable mapping decisions (the academic value)
