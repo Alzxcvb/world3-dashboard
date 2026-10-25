@@ -1,6 +1,6 @@
 # SW (Stabilized World) Scenario: Validation Note
 
-This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64 to 96) changes relative to the base run (`run_bau`, lines 28 to 36), where the code names a source, and what is not verified. Everything below is read from the code, existing docs, the pyworld3 source named where used, and a Crossref lookup for the book citation. The model was not run to write this note (pyworld3 is not installed in the environment used), so no output values were produced for this note; the only output figure quoted (in Claimed behavior) is taken from the smoke test recorded in `tasks/todo.md`.
+This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64 to 96) changes relative to the base run (`run_bau`, lines 28 to 36), where the code names a source, and what is not verified. Everything below is read from the code, existing docs, the pyworld3 source named where used, and a Crossref lookup for the book citation. The model was not run to write this note (pyworld3 is not installed in the environment used), so no output values were produced for this note; the output figures quoted under Claimed behavior come from the code's own docstring and header (`src/scenarios.py`) and from the smoke test recorded in `tasks/todo.md`.
 
 ## What the code says SW is
 
