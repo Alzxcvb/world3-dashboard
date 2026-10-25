@@ -1,6 +1,6 @@
 # SW (Stabilized World) Scenario: Validation Note
 
-This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64 to 96) changes relative to the base run (`run_bau`, lines 28 to 36), where the code names a source, and what is not verified. Everything below is read from the code, existing docs, the pyworld3 source named where used, and a Crossref lookup for the book citation. The model was not run to write this note (pyworld3 is not installed in the environment used), so no output values are quoted.
+This note records what the SW scenario in `src/scenarios.py` (`run_sw`, lines 64 to 96) changes relative to the base run (`run_bau`, lines 28 to 36), where the code names a source, and what is not verified. Everything below is read from the code, existing docs, the pyworld3 source named where used, and a Crossref lookup for the book citation. The model was not run to write this note (pyworld3 is not installed in the environment used), so no output values were produced for this note; the only output figure quoted (in Claimed behavior) is taken from the smoke test recorded in `tasks/todo.md`.
 
 ## What the code says SW is
 
@@ -19,11 +19,11 @@ The base run calls `init_world3_constants()` with no arguments (`src/scenarios.p
 | `fcest` | 2002 | family size completion trigger | none |
 | `iet` | 2002 | industrial equilibrium trigger | none |
 | `iopcd` | 350 | industrial output per capita desired (cap growth) | none |
-| `nruf2` | 0.1 | resource efficiency after policy year | none |
-| `ppgf2` | 0.1 | pollution generation factor after policy year | none |
-| `ppgf21` | 0.1 | secondary pollution chain factor after policy year | none (may have no effect in the coupled run, see assumption 3) |
+| `nruf2` | 0.1 | resource efficiency after pyear | none |
+| `ppgf2` | 0.1 | pollution generation factor after pyear | none |
+| `ppgf21` | 0.1 | secondary pollution chain factor after pyear | none (may have no effect in the coupled run, see assumption 3) |
 | `lyf2` | 1.2 | land yield factor (ag tech) | none |
-| `alai2` | 1 | arable land adjustment after policy year | none |
+| `alai2` | 1 | arable land adjustment after pyear | none |
 
 Defaults these replace, read from the pyworld3 master branch (world3.py lines 106 to 121, https://raw.githubusercontent.com/cvanwynsberghe/pyworld3/master/pyworld3/world3.py): `zpgt`, `pet`, `fcest`, `iet` = 4000; `iopcd` = 400; `nruf2`, `ppgf2`, `ppgf21` = 1; `lyf2` = 1; `alai2` = 2. Whether the pip release matches master was not checked. The comments are the code author's labels. They were not checked against the pyworld3 source or documentation.
 
